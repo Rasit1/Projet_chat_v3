@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="/css/new-product.css">
+</head>
+
+
+
+<body>
+
+<div class="container" >
+	<div class="row" >
+		<h1>New Cat</h1>
+	</div>
+</div>
+
+
+
+
+<div class="container">
+    <div class="row">
+      <%= render 'form', product: @product %>
+    </div>
+  </div>
+
+
+</body>
+</html>
+
+
+
+<%= link_to 'Back', products_path %>

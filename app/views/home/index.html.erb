@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+
+    <link rel="stylesheet" type="text/css" href="/css/acceuil.css">
+
+  </head>
+
+  <body class="bod">
+
+
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top ">
+
+      <p class="logo">Sayna<span class="spa">SAKA</span></p>
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+
+        <ul class="navbar-nav">
+
+          <li class="nav-item">
+            <a class="nav-link" href="#">Acceuil</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="<%=new_admin_path%>">Admin</a>
+          </li>
+
+          <li class="nav-item">
+            <% if(current_user) %>
+              <!-- <a class="nav-link" href="/session/<""%= @id %>" data-method="delete" >Log Out</a> -->
+              <%= link_to "Log Out", session_path(current_user.id), method: :delete, class: 'nav-link' %>
+
+            <%else%>
+             <a class="nav-link" href=<%= new_session_path %>>Log In</a>
+            <%end%>
+          </li>
+
+        </ul>
+
+      </div>
+
+    </nav>
+
+
+
+    <!-- carousel -->
+
+    <!--Carousel Wrapper-->
+    <div id="carousel-example-2" class="carousel slide carousel-fade" data-ride="carousel">
+      <!--Indicators-->
+      <ol class="carousel-indicators">
+        <li data-target="#carousel-example-2" data-slide-to="0" class="active"></li>
+        <li data-target="#carousel-example-2" data-slide-to="1"></li>
+        <li data-target="#carousel-example-2" data-slide-to="2"></li>
+      </ol>
+      <!--/.Indicators-->
+      <!--Slides-->
+      <div class="carousel-inner" role="listbox">
+        <div class="carousel-item active">
+          <div class="view">
+            <img class="d-block w-100" src="/sary/po.jpg" alt="First slide" width="1600px" height="550px">
+            <div class="mask rgba-black-light"></div>
+          </div>
+          <div class="carousel-caption">
+            <h2 class="h3-responsive">Varotra Saka en ligne</h2>
+            <p>Offre tena tsara</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <!--Mask color-->
+          <div class="view">
+            <img class="d-block w-100" src="sary/ljk.jpeg" alt="Second slide" width="1600px" height="550px">
+            <div class="mask rgba-black-strong"></div>
+          </div>
+          <div class="carousel-caption">
+            <h2 class="h3-responsive">Varotra Saka en ligne</h2>
+            <p>Qualité de service au top</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <!--Mask color-->
+          <div class="view">
+            <img class="d-block w-100" src="sary/cvb.jpg" alt="Third slide" width="1600px" height="550px">
+            <div class="mask rgba-black-slight"></div>
+          </div>
+          <div class="carousel-caption">
+            <h2 class="h3-responsive">Varotra Saka en ligne</h2>
+            <p>Misy garantie</p>
+          </div>
+        </div>
+      </div>
+      <!--/.Slides-->
+      <!--Controls-->
+      <a class="carousel-control-prev" href="#carousel-example-2" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#carousel-example-2" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+      <!--/.Controls-->
+    </div>
+    <!--/.Carousel Wrapper-->
+
+
+
+
+
+<!-- saka amidy -->
+
+<div class="amidy" >
+
+  <div class="container" >
+
+
+     <div class="row" >
+
+         <% @products.each do |product| %>
+
+         <div id="saka" class="col-md-2.5" >
+
+            <p id="titre" > <%= product.title %> </p>
+
+            <%= image_tag product.image_url , class: "img-fluid" , id:"sarysary" %>
+
+            <p id="titre" ><%= number_to_currency product.price  , unit: " Ariary  ", separator: ",", format: "%u%n" %></p>
+
+          <button type="button" class="btn btn-success" data-toggle="modal" data-target="#show<%= product.id %>">show</button>
+
+
+
+<!-- Modal show -->
+<div class="modal fade" id="show<%= product.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+
+        <%= image_tag product.image_url, class: "img-fluid" , id:"sarysary" %>
+
+       <h6>Detail:</h6>
+
+       <p> <%= truncate strip_tags(product.description), length: 250 %></p>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+          <% if(current_user) %>
+              <%= button_to 'Ajouter au panier', line_items_path(product_id: product), class: "btn btn-primary" %>
+              <%else%>
+              <%= link_to 'Ajouter au panier', new_session_path, class: "btn btn-primary" %>
+          <%end%>
+
+
+
+         </div>
+
+
+       <%end%>
+
+     </div>
+
+</div>
+</div>
+
+
+<!-- payement -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Footer -->
+<footer class="page-footer font-small blue pt-4">
+
+
+    <div class="container-fluid text-center text-md-left">
+
+
+      <div class="row">
+
+
+        <div class="col-md-4 mt-md-0 mt-3">
+
+          <div id="paye" class="row" >
+
+              <div class="col-md-3" >
+                <img id="logo" src="/logo/bit.png">
+              </div>
+
+              <div class="col-md-3" >
+                <img id="logo" src="/logo/mvola.png">
+              </div>
+
+
+              <div class="col-md-3" >
+                <img id="logo" src="/logo/paypal.png">
+              </div>
+
+              <div class="col-md-3" >
+                <img id="logo" src="/logo/index.png">
+              </div>
+
+          </div>
+
+
+        </div>
+
+
+
+<!-- mail -->
+
+
+        <div class="col-md-4 mb-md-0 mb-3">
+
+             <div id="mail" class="form-group">
+              <h3>Mail Direct</h3>
+                <label for="exampleFormControlInput1">Email address</label>
+                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+              </div>
+
+
+
+              <div class="form-group">
+                <label for="message">Your Message</label>
+                <textarea type="email" class="form-control" id="message" placeholder="Message" ></textarea>
+              </div>
+
+
+              <button class="btn btn-primary" type="submit" >Envoyer</button>
+
+
+         </div>
+
+
+
+
+
+
+
+
+          <div id="logos" class="col-md-4 mb-md-0 mb-3">
+
+              <div id="logo-footer" >
+                 <a id="lien" href="#"><img id="link" src="/logo/fb.svg">RAKOTO NANDRA SANINA</a>
+              </div>
+
+             <div>
+                <a id="lien" href="#"><img id="link" src="/logo/twit.svg">RABE KILOTY</a>
+            </div>
+
+          </div>
+
+
+    </div>
+
+
+
+
+  </footer>
+  <!-- Footer -->
+
+
+
+
+
+
+
+
+
+  </body>
+</html>
